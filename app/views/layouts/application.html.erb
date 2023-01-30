@@ -6,11 +6,100 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class ="navbar navbar-expand-lg">
+        <div class ="container">
+          <a class ="navbar-brand" href ="/">
+            <span></span>
+          </a>
+          
+          <% if customer_signed_in? %>
+          <div class ="d-flex align-items-center justify-content-center">
+            ようこそ<%= current_customer.last_name %>さん!
+          </div>
+          
+          <ul class="navbar-nav ml-10">
+            <li>
+              <%= link_to '/customers/mypage' do %>マイページ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to '/items' do %>商品一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to '/cart_items' do %>カート一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_customer_session_path, method: :delete do %>ログアウト
+              <% end %>
+            </li>
+          </ul>
+          
+          <% elsif admin_signed_in? %>
+          <ul class ="navbar-nav ml-10">
+            <li>
+              <%= link_to '/admin/items' do %>商品一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to '/admin/customers' do %>会員一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to '/admin' do %>注文履歴一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to '/admin/genres' do %>ジャンル一覧
+              <% end %>
+            </li>
+            <li>
+              <%=link_to destroy_admin_session_path, method: :delete do %>ログアウト
+              <% end %>
+            </li>
+          </ul>
+          
+          <% else %>
+          <ul class="navbar-nav ml-10">
+            <li>
+              <%= link_to '/about' do %>About
+              <% end %>
+            </li>
+            <li>
+              <%=link_to '/items' do %>商品一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_customer_registration_path do %>新規登録
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_customer_session_path do %>ログイン
+              <% end %>
+            </li>
+          </ul>
+          
+          <% end %>
+        </div>
+      </nav>
+   
+  </header>
     <%= yield %>
+    <footer class ="fixed-bottom">
+      <div class ="container mt-5">
+        <div class ="row">
+          <div class ="mx-auto">
+            <p>Nagano Cake</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

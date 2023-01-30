@@ -1,0 +1,58 @@
+<div calss="container">
+    <div class="row">
+        <div class="col-4">
+
+
+<h4 class="m-4"><span style="background-color:#eeeeee">商品一覧</span></h4>
+</div>
+<div class="col-5"></div>
+<div class="col-3">
+    <p class="my-4"><%= link_to new_admin_item_path do %>
+        <button type="button" class="btn btn-outline-dark rounded-circle p-0" style="width:3rem;height:3rem;">＋</button>
+      <% end %></p>
+</div>
+</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-11">
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th class="col-2">商品ID</th>
+            <th class="col-2">商品名</th>
+            <th class="col-3">税抜価格</th>
+            <th class="col-2">ジャンル</th>
+            <th class="col-2">ステータス</th>
+        </tr>
+    </thead>
+<% @items.each do |item| %>
+    <tbody>
+        <tr>
+            <td><%= item.id %></td>
+            <td>
+                <%=link_to admin_item_path(item.id) do %>
+                <%= item.name %>
+                <% end %>
+            </td>
+            <td><%= item.price %></td>
+            <td><%= item.genre.name %></td>
+            <td><div class="font-weight-bold">
+                <% if item.is_active == false %>
+                  <p class="text text-success">販売中</p>
+                <% else %>
+                  <p class="text text-secondary">販売停止中</p>
+                <% end %>
+              </div></td>
+        </tr>
+    </tbody>
+<% end %>    
+</table>
+</div>
+</div>
+</div>
+
+
+
